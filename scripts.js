@@ -1,160 +1,185 @@
-//generic scroll to any position and any duration
-function smoothScroll(target, duration) {
-    var target = document.querySelector(target);
-
-    //this will have the targets position relative ro top of SCREEN - where we want to go
-    var targetPosition = target.getBoundingClientRect().top;
-
-    //this will give SCREENS position realtive to top - where we are NOW
-    var startingPosition = window.pageYOffset;
-
-    var distance = targetPosition - startingPosition;
-    var startTime = null;
-
-    console.log("start pos=", startingPosition);
-    console.log("target pos =", targetPosition);
-    console.log("distance =", distance);
-
-
-    function animation(currentTime) {
-
-        if (startTime === null) startTime = currentTime;
-        var timeElapsed = currentTime - startTime;
-
-        //can use some easing function
-        var run = easeInOut(timeElapsed, startingPosition, distance, duration);
-
-        //or some very basic linear scrolling
-        //each frame we move a bit up - minus from current position
-        //we want to cover the whole distance in duration, so we move with
-        // speed = distance/duration px/ms
-        //so when timeElapsed == duration we will have covered the whole distance;
-        var runSimple = startingPosition + (distance / duration) * timeElapsed;
-
-
-
-        //this scrolls to given X Y position;
-        window.scrollTo(0, runSimple);
-        if (timeElapsed < duration) requestAnimationFrame(animation);
-
-
-
-        //the easing function it justs works ( http://gizma.com/easing/ )
-        function easeInOut(t, b, c, d) {
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t + b;
-            t--;
-            return -c / 2 * (t * (t - 2) - 1) + b;
-        };
-    }
-
-    //60fps so one animation frame last 1/60 second
-    //if the animation lasts 2s the function will be called 120 times(frames)
-    requestAnimationFrame(animation);
+function Book(title, url, price, quantity) {
+    this.title = title;
+    this.imgURL = url;
+    this.price = price;
+    this.quantity = quantity;
 }
 
-//scroll to top
-function smoothScrollTop() {
-
-    var target = 0; // scroll top top 0px
-
-    //this will give SCREENS position realtive to top - where we are NOW
-    var startingPosition = window.pageYOffset;
-    //the scrolling distance will be equal to the position since target is 0
-    var distance = startingPosition - target;
-    var startTime = null;
-
-    // console.log("start pos=", startingPosition);
-    // console.log("target pos =", targetPosition);
-    // console.log("distance =", distance);
 
 
-    function animation(currentTime) {
-
-        if (startTime === null) startTime = currentTime;
-
-        //the duration will not be set but relative to scrolling distance
-        //average speed is distance(px)/duration(ms) = 4px/ms 
-        var duration = distance / 4;
-        var timeElapsed = currentTime - startTime;
-
-        //we can use some EASING function
-        //scrollStep goes from 0 to the full distance we want to scroll
-        var scrollStep = easeInOut(timeElapsed, 0, distance, duration);
-
-        //or a simple LINEAR scrolling
-        //each frame we move a bit up - minus from current position
-        //we want to cover the whole distance in duration, so we move with
-        // speed = distance/duration px/ms
-        //so when timeElapsed == duration we will have covered the whole distance;
-        //runSimple goes from the startPosition ang decreases to target
-        var scrollStepSimple = (distance / duration) * timeElapsed;
+let cartContent = loadCart();
+console.log(cartContent);
 
 
 
-        //this scrolls to given X Y position;
-        window.scrollTo(0, startingPosition - scrollStep);
-        if (timeElapsed <= duration) requestAnimationFrame(animation);
+
+const html = document.querySelector("html");
+const cartTgl = document.querySelector(".cart-icon")
+const myCartOvr = document.querySelector("#my-cart-overlay")
+const myCart = document.querySelector("#my-cart")
+const burger = document.querySelector(".toggler");
+const menu = document.querySelector("#nav-menu");
+const addToBskt = document.querySelectorAll(".price-buy button");
+const contentOvr = document.querySelector(".content-overlay");
+
+let isNavOpen = false;
+let isCartOpen = false;
+
+// myCart.innerHTML += tt;
+// myCart.innerHTML += tt;
+// myCart.innerHTML += tt;
+// myCart.innerHTML += tt;
 
 
+/*---------------------------------
+-----------EVENT LISTENERS---------
+---------------------------------*/
 
-        //the easing function it justs works ( http://gizma.com/easing/ )
-        function easeInOut(t, b, c, d) {
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t + b;
-            t--;
-            return -c / 2 * (t * (t - 2) - 1) + b;
-        };
+//make sure nav fade in works correctly after resizing
+window.addEventListener('resize', function () {
+    if (window.innerWidth > 950) {
+        menu.className = "";
+        isNavOpen = false;
     }
-
-    //60fps so one animation frame last 1/60 second
-    //if the animation lasts 2s the function will be called 120 times(frames)
-    requestAnimationFrame(animation);
-}
-
-var linkToTop = document.querySelector(".scroll-to-top");
-linkToTop.addEventListener("click", function () {
-    smoothScrollTop();
+    else if (!isNavOpen) {
+        menu.className = "close"
+        isNavOpen = false;
+    }
 })
 
-var accordionButtons = document.querySelectorAll(".acc-anchor");
-// console.log(accordionButtons);
-// console.log(accordionButtons[1].hash);
-// console.log(location.hash);
-//MAKES THE ACCORDION ANCHORS IDABLED ON RECLICK
-accordionButtons.forEach(function (accBut) {
-
-    accBut.addEventListener("click", function (event) {
-        console.log(location.hash);
-
-        //the hash is the #part of the url or and anchor
-        //if the hash of the anchor is equal to the url hash
-        //then this anchor is allready active so...
-        if (event.target.hash == location.hash) {
-            console.log("here");
-            location.hash = "";
-            console.log(event);
-            event.preventDefault();   //default action is to set location hash to its own hash
+burger.addEventListener("click", function () {
+    console.log(isNavOpen)
+    //if its open close it
+    if (isNavOpen) {
+        html.style.overflow = "initial"
+        menu.classList.add("close")
+        menu.classList.remove("open")
+        isNavOpen = !isNavOpen
+    }
+    //if its close open it
+    else {
+        html.style.overflow = "hidden"
+        menu.classList.add("open")
+        menu.classList.remove("close")
+        isNavOpen = !isNavOpen
+        //if cart is open close it
+        if (isCartOpen) {
+            myCartOvr.classList.toggle("open")
+            isCartOpen = !isCartOpen;
         }
-    })
-
+    }
 })
 
 
-function appearOnScroll() {
 
-    var texts = document.querySelectorAll(".text-area");
-    texts.forEach(function (text) {
-        if (text.getBoundingClientRect().top - 400 < window.pageYOffset) {
-            // console.log(text.getBoundingClientRect().top)
-            // console.log(window.pageYOffset)
-            text.classList.add("text-area-show");
+cartTgl.addEventListener("click", function () {
+    console.log(isCartOpen)
+    //if its close open it
+    if (!isCartOpen) {
+        generateMyCart();
+        myCartOvr.classList.toggle("open")
+        html.style.overflow = "hidden"
+        contentOvr.style.display = "block";
+        isCartOpen = !isCartOpen;
+        //if nav is open close it
+        if (isNavOpen) {
+            menu.classList.add("close")
+            menu.classList.remove("open")
+            isNavOpen = !isNavOpen
         }
-        else {
-            text.classList.remove("text-area-show");
+    }
+    else {
+        myCartOvr.classList.toggle("open")
+        html.style.overflow = "initial"
+        contentOvr.style.display = "none";
+        isCartOpen = !isCartOpen;
+    }
+})
+
+//add to basket function
+addToBskt.forEach((button) => {
+    button.addEventListener("click", function () {
+        console.log(this.value);
+        cartContent[this.value - 1].quantity++;
+        //update the save
+        localStorage.setItem("cartContent", JSON.stringify(cartContent))
+    })
+})
+
+
+
+/*---------------------------------
+-----------OTHER FUNCTIONS---------
+---------------------------------*/
+
+
+
+function loadCart() {
+    let cartContentTemp = [];
+    //if theres no cart content in memory initialise it
+    if (localStorage.getItem("cartContent") == null) {
+        let newBook = new Book("A Game Of Thrones", "images/got.jpg", '11.70', 0);
+        cartContentTemp.push(newBook);
+        newBook = new Book("Dune", "images/dune.jpg", '9.80', 0);
+        cartContentTemp.push(newBook);
+        newBook = new Book("The Hobbit, or There and Back Again", "images/hobbit.jpg", '8.90', 0);
+        cartContentTemp.push(newBook);
+        newBook = new Book("Foundation", "images/found.jpg", '12', 0);
+        cartContentTemp.push(newBook);
+        localStorage.setItem("cartContent", JSON.stringify(cartContentTemp))
+        return cartContentTemp;
+    }
+    return JSON.parse(localStorage.getItem("cartContent"));
+}
+
+function generateMyCart() {
+    let sum = 0;
+    myCart.innerHTML = "";
+    cartContent.forEach(book => {
+        if (book.quantity > 0) {
+            let newBookOnCart = document.createElement("div");
+            newBookOnCart.classList.add("book-item-cart")
+            newBookOnCart.innerHTML = `<div class="book-cover-cart"><img src=${book.imgURL} alt=""></div>
+                                       <div class="book-item-body-cart">
+                                            <p class="book-title-cart">${book.title}</p>
+                                            <div class="book-info"><span>QUANTITY: ${book.quantity}</span><button>X</button><span>${book.price}€</span></div>
+                                       </div>`
+            myCart.appendChild(newBookOnCart);
+            sum += eval(book.quantity * book.price);
+            //we give the delete button a value which ties it with a book on our cartContent array
+            newBookOnCart.querySelector(".book-info button").value = cartContent.indexOf(book) + 1;
+            //...and add event listener to the delete button
+            newBookOnCart.querySelector(".book-info button").addEventListener("click", deleteFromCart)
         }
     })
+    const priceBox = document.querySelector(".price-total");
+    priceBox.innerText = "Total: " + sum.toFixed(2) + "€";
+    //take care of empty cart
+    if (sum == 0) {
+        let pEmpty = document.createElement("p")
+        pEmpty.innerText = "There is nothing here"
+        myCart.appendChild(pEmpty)
+    }
 
 }
 
-window.addEventListener("scroll", appearOnScroll);
+function deleteFromCart() {
+    console.log(this.value)
+    console.log
+    this.parentNode.parentNode.parentNode.remove();
+    //update price
+    const priceBox = document.querySelector(".price-total");
+    const oldPrice = priceBox.innerText.match(/(\d)+(\.)?(\d)*/g)[0];
+    const newPrice = oldPrice - cartContent[this.value - 1].quantity * cartContent[this.value - 1].price;
+    priceBox.innerText = "Total: " + newPrice.toFixed(2) + "€";
+    if (newPrice == 0) {
+        let pEmpty = document.createElement("p")
+        pEmpty.innerText = "There is nothing here"
+        myCart.appendChild(pEmpty)
+    }
+    //update cart quantities on temp and memory
+    cartContent[this.value - 1].quantity = 0;
+    localStorage.setItem("cartContent", JSON.stringify(cartContent))
+
+
+}
