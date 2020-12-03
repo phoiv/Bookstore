@@ -10,8 +10,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/main-style.css">
+    <link rel="stylesheet" href="styles/style-frontpage.css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -23,39 +25,32 @@
             </a>
         </div>
 
+        <!-- toggles the mobile-nav-menu -->
+        <!-- <input type="checkbox" id="chk" name="toggler"> -->
+        <div class="toggler">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
 
-        <input type="checkbox" id="chk" name="toggler">
-        <label class="toggler" for="chk">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </label>
 
-        <!-- REDO THIS ACCORDION WITH CHKBXS -->
-        <ul id="nav-menu">
-            <li class="nav-link"><a href="#">Home</a></li>
-            <li class="nav-link">
-                <a href="#acc1" class="acc-anchor">About..</a>
-                <ul class="hidden" id="acc1">
-                    <li><a href="#">Who are We</a></li>
-                    <li><a href="#">What we Do</a></li>
-                </ul>
-            </li>
-            <li class="nav-link">
-                <a href="#acc2" class="acc-anchor">Portfolio..</a>
-                <ul class="hidden" id="acc2">
-                    <li><a href="#">Project</a></li>
-                    <li><a href="#">Project</a></li>
-                    <li><a href="#">Project</a></li>
-                </ul>
-            </li>
-            <li class="nav-link"><a href="#">Contact Us</a></li>
+        <ul id="nav-menu" class="close">
+            <li class="nav-link active"><a href="#">Home</a></li>
+            <li class="nav-link"><a href="products.html">Products</a></li>
+            <li class="nav-link"><a href="about.html">About</a></li>
+            <li class="nav-link"><a href="contact.html">Contact</a></li>
         </ul>
 
+        <div class="cart-icon">
+            <i class="material-icons">add_shopping_cart</i><span> cart</span>
+        </div>
+
     </header>
+
     <div class="back-image">
         <h2>your neighboorhood<br>bookstore</h2>
     </div>
+
     <div class="main-content">
         <div class="grid-duo">
             <div class="text-area">
@@ -103,7 +98,23 @@
         </div>
     </div>
 
-    <a href="#" class="scroll-to-top"><i class='far fa-arrow-alt-circle-up'></i></a>
+    <div id="my-cart-overlay">
+        <h3>My Cart</h3>
+        <button class="checkout-btn">PROCEED TO CHEKOUT</button>
+        <div id="my-cart">
+            <!-- <div class="book-item-cart">
+            <div class="book-cover-cart"><img src="images/got.jpg" alt=""></div>
+            <div class="book-item-body-cart">
+                <p class="book-title-cart">Title</p>
+                <div class="book-info"><span>QUANTITY:</span><button>DELETE</button><span>PRICE</span></div>
+            </div>
+        </div> -->
+        </div>
+        <p class="price-total">Total: </p>
+    </div>
+
+    <div class="content-overlay"></div>
+    <!-- <a href="#" class="scroll-to-top"><i class='far fa-arrow-alt-circle-up'></i></a> -->
 
     <script src="./scripts.js"></script>
 

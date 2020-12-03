@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Syne+Mono&family=Syne+Tactile&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="styles/main-style.css">
+    <link rel="stylesheet" href="styles/style-products.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-wrap">
+            <a href="#">
+                <p>my<span>BOOKSTORE</span></p>
+            </a>
+        </div>
+
+        <!-- toggles the mobile-nav-menu -->
+
+        <div class="toggler">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+
+        <ul id="nav-menu" class="close">
+            <li class="nav-link"><a href="index.html">Home</a></li>
+            <li class="nav-link active"><a href="products.html">Products</a></li>
+            <li class="nav-link"><a href="about.html">About</a></li>
+            <li class="nav-link"><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="cart-icon">
+            <i class="material-icons">add_shopping_cart</i><span> cart</span>
+        </div>
+
+    </header>
+
+    <div class="content">
+        <h1>Our Book Selection</h1>
+        <div class="book-grid">
+            <div class="book-item">
+                <p class="book-title">A Game Of Thrones</p>
+                <div class="book-item-body">
+                    <div class="book-cover">
+                        <img src="images/got.jpg" alt="got">
+                    </div>
+                    <div class="book-details">
+                        <p class="book-description">Here is the first volume in George R. R. Martin’s magnificent cycle
+                            of novels that includes A Clash of Kings and A Storm of Swords. As a whole, this series
+                            comprises a genuine masterpiece of modern fantasy, bringing together the best the genre has
+                            to offer. </p>
+                        <p class="book-quote">“... a mind needs books as a sword needs a whetstone, if it is to keep its
+                            edge.”</p>
+                        <p class="price-buy"><span>11.70€</span><button value="1">add to basket</button></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-item">
+                <p class="book-title">Dune</p>
+                <div class="book-item-body">
+                    <div class="book-cover">
+                        <img src="images/dune.jpg" alt="dune">
+                    </div>
+                    <div class="book-details">
+                        <p class="book-description">Set on the desert planet Arrakis, Dune is the story of the boy Paul
+                            Atreides, heir to a noble family tasked with ruling an inhospitable world where the only
+                            thing of value is the “spice” melange, a drug capable of extending life and enhancing
+                            consciousness. Coveted across the known universe, melange is a prize worth killing for...
+                        </p>
+                        <p class="book-quote">“The mystery of life isn't a problem to solve, but a reality to
+                            experience.”</p>
+                        <p class="price-buy"><span>9.80€</span><button value="2">add to basket</button></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-item">
+                <p class="book-title">The Hobbit, or There and Back Again</p>
+                <div class="book-item-body">
+                    <div class="book-cover">
+                        <img src="images/hobbit.jpg" alt="got">
+                    </div>
+                    <div class="book-details">
+                        <p class="book-description">In a hole in the ground there lived a hobbit. Not a nasty, dirty,
+                            wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole
+                            with nothing in it to sit down on or to eat: it was a hobbit-hole, and that means comfort.
+                        </p>
+                        <p class="book-quote">“There is nothing like looking, if you want to find something. You
+                            certainly usually find something, if you look, but it is not always quite the something you
+                            were after.”</p>
+                        <p class="price-buy"><span>8.90€</span><button value="3">add to basket</button></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-item">
+                <p class="book-title">Foundation</p>
+                <div class="book-item-body">
+                    <div class="book-cover">
+                        <img src="images/found.jpg" alt="got">
+                    </div>
+                    <div class="book-details">
+                        <p class="book-description">For twelve thousand years the Galactic Empire has ruled supreme. Now
+                            it is dying. But only Hari Seldon, creator of the revolutionary science of psychohistory,
+                            can see into the future -- to a dark age of ignorance, barbarism, and warfare that will last
+                            thirty thousand years. To preserve knowledge and save mankind, Seldon gathers the best minds
+                            in the Empire -- both scientists and scholars -- and brings them to a bleak planet at the
+                            edge of the Galaxy to serve as a beacon of hope for a future generations. He calls his
+                            sanctuary the Foundation.</p>
+                        <p class="book-quote">“Violence is the last refuge of the incompetent.”</p>
+                        <p class="price-buy"><span>12€</span><button value="4">add to basket</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="my-cart-overlay">
+        <h3>My Cart</h3>
+        <button class="checkout-btn">PROCEED TO CHEKOUT</button>
+        <div id="my-cart">
+            <!-- <div class="book-item-cart">
+                <div class="book-cover-cart"><img src="images/got.jpg" alt=""></div>
+                <div class="book-item-body-cart">
+                    <p class="book-title-cart">Title</p>
+                    <div class="book-info"><span>QUANTITY:</span><button>DELETE</button><span>PRICE</span></div>
+                </div>
+            </div> -->
+        </div>
+        <p class="price-total">Total: </p>
+    </div>
+
+    <div class="content-overlay"></div>
+
+    <script src="./scripts.js"></script>
+</body>
+
+</html>
