@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Syne+Mono&family=Syne+Tactile&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main-style.css">
+    <link rel="stylesheet" href="styles/style-contact.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-wrap">
+            <a href="#">
+                <p>my<span>BOOKSTORE</span></p>
+            </a>
+        </div>
+
+        <!-- toggles the mobile-nav-menu -->
+        <!-- <input type="checkbox" id="chk" name="toggler"> -->
+        <div class="toggler">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+
+        <ul id="nav-menu" class="close">
+            <li class="nav-link"><a href="index.html">Home</a></li>
+            <li class="nav-link"><a href="products.html">Products</a></li>
+            <li class="nav-link"><a href="about.html">About</a></li>
+            <li class="nav-link active"><a href="#">Contact</a></li>
+        </ul>
+
+        <div class="cart-icon">
+            <i class="material-icons">add_shopping_cart</i><span> cart</span>
+        </div>
+
+    </header>
+
+    <div class="back-image">
+
+        <div class="content">
+            <form>
+                <h1>Contact Us</h1>
+                <div>
+                    <label for="f-name">Name:</label>
+                    <input type="text" id="f-name">
+                </div>
+                <div>
+                    <label for="f-email">E-mail:</label>
+                    <input type="email" id="f-email">
+                </div>
+                <div>
+                    <label for="f-msg">Your Message:</label>
+                    <textarea name="msg" id="f-msg" cols="30" rows="10"></textarea>
+                </div>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+
+    <div id="my-cart-overlay">
+        <h3>My Cart</h3>
+        <button class="checkout-btn">PROCEED TO CHEKOUT</button>
+        <div id="my-cart">
+            <!-- <div class="book-item-cart">
+            <div class="book-cover-cart"><img src="images/got.jpg" alt=""></div>
+            <div class="book-item-body-cart">
+                <p class="book-title-cart">Title</p>
+                <div class="book-info"><span>QUANTITY:</span><button>DELETE</button><span>PRICE</span></div>
+            </div>
+        </div> -->
+        </div>
+        <p class="price-total">Total: </p>
+    </div>
+
+    <div class="content-overlay"></div>
+
+
+    <script src="./scripts.js"></script>
+
+</body>
+
+</html>

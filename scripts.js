@@ -40,6 +40,9 @@ window.addEventListener('resize', function () {
     if (window.innerWidth > 950) {
         menu.className = "";
         isNavOpen = false;
+        if (isCartOpen) {
+            contentOvr.style.display = "block";
+        }
     }
     else if (!isNavOpen) {
         menu.className = "close"
@@ -64,6 +67,7 @@ burger.addEventListener("click", function () {
         isNavOpen = !isNavOpen
         //if cart is open close it
         if (isCartOpen) {
+            contentOvr.style.display = "none";
             myCartOvr.classList.toggle("open")
             isCartOpen = !isCartOpen;
         }
@@ -83,6 +87,7 @@ cartTgl.addEventListener("click", function () {
         isCartOpen = !isCartOpen;
         //if nav is open close it
         if (isNavOpen) {
+            contentOvr.style.display = "none";
             menu.classList.add("close")
             menu.classList.remove("open")
             isNavOpen = !isNavOpen

@@ -26,6 +26,13 @@ BACKGROUND IMAGE
     /* -webkit-text-stroke:0.5px black; */
 }
 
+/*fixes text overflowing on mobile*/
+@media only screen and (max-width: 450px) {
+    .back-image h2 {
+        left: 10px;
+        font-size: 35px;
+    }
+}
 
 /*------------------------
 CONTENT

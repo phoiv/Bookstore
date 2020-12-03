@@ -34,7 +34,6 @@ header {
     display: flex;
     justify-content: center;
     z-index: 1;
-    /* box-shadow: 0px 2px 2px #202020; */
 }
 
 
@@ -47,12 +46,11 @@ header {
     display: flex;
     align-items: center;
     font-size: 30px;
-    /* margin: 0 0 0 5%; */
 }
 
 .logo-wrap p {
     font-family: Syne Tactile;
-    /* text-shadow: 2px 2px 15px #202020; */
+    cursor: default;
 }
 
 
@@ -60,6 +58,7 @@ header {
     font-family: Roboto, Syne Mono;
     font-weight: 800;
     margin-left: 2px;
+    cursor: default;
 }
 
 /*NAV LINKS*/
@@ -67,7 +66,7 @@ header {
 #nav-menu {
     display: flex;
     align-items: flex-end;
-    width: 650px;
+    width: 450px;
     max-width: 40%;
     height: 80%;    
 }
@@ -75,13 +74,6 @@ header {
 .nav-link {
     text-align: center;
     flex:1;
-    /* perspective: 1000px; */
-}
-
-.nav-link a {
-    /* display: inline-block; */
-    /* height: 100%;
-    width: 100%;     */
 }
 
 .nav-link> a:hover {
@@ -97,7 +89,8 @@ header {
 .cart-icon{   
     position: absolute;
     right: 5%;
-    line-height: 70px; 
+    line-height: 70px;
+    cursor: pointer; 
 }
 
 .cart-icon span{
@@ -109,12 +102,6 @@ header {
     font-size: 30px;
     vertical-align: middle;
 }
-
-/* FIXES SOME MARGINS SO NAV :first */
-/* @media only screen and (max-width: 1050px){
-    
-} */
-
 
 
 /*NAV TOGGLER FOR MOBILE ITS HIDDEN IN NORMAL VIEW*/
@@ -152,7 +139,6 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
         display: block;
         position: absolute;
         left: 5%;
-        cursor: pointer;
     }
     
     .logo-wrap {
@@ -160,19 +146,14 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
         transform: translateX(-50%);  
     }
 
-    
     #nav-menu.open {
         display: flex;
         transform: translateX(0);
-      
-        /* animation: nav-fade-in 0.8s ease-in-out forwards; */
     }
 
     #nav-menu.close {
         display: flex;
         transform: translateX(-100%);
-      
-        /* animation: nav-fade-in 0.8s ease-in-out forwards; */
     }
  
     #nav-menu {
@@ -193,32 +174,8 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
         letter-spacing: 2px;
         z-index: 200;
         transition: transform 0.7s ease-in-out;
-        /* animation: nav-fade-out 0.8s ease-in-out forwards; */
     }
 
-    @keyframes nav-fade-in {
-        0%{
-            transform: translateX(-100%);
-            opacity: 1;
-        }
-        100%{
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-    }
-
-    @keyframes nav-fade-out {
-        0%{
-            transform: translateX(0);
-            opacity: 1;
-        }
-        100%{
-            transform: translateX(-100%);
-            opacity: 1;
-        }
-        
-    }
 
     .nav-link {
         flex: initial;
@@ -241,7 +198,7 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
     top: 70px;
     right: 0;
     height: calc(100vh - 70px);
-    width: 40%;
+    width: 35%;
     min-width: 500px;
     transform: translateX(100%);
     background-color:  var(--main-bg-color);
@@ -268,6 +225,16 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
     margin-bottom: 10px;
 }
 
+.checkout-btn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 4px 5px;
+    /* border-radius: 3px; */
+    outline: none;
+    background-color: rgb(56, 236, 56);
+}
+
 .book-cover-cart img{
     width: 100px;
     vertical-align: bottom;
@@ -282,8 +249,8 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
 }
 
 .book-info {
-    position: relative;
-    /* display: flex; */
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .book-info button {
@@ -292,20 +259,9 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
 }
 
 .book-info span:last-child{
-    position: absolute;
-    right: 0;
-    
+    margin-left: auto;   
 }
 
-.checkout-btn{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 3px 5px;
-    /* border-radius: 3px; */
-    outline: none;
-    background-color: rgb(56, 236, 56);
-}
 
 .price-total {
     text-align: right;
@@ -314,6 +270,7 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
 @media only screen and (max-width: 950px) {
     #my-cart-overlay{
          width: 100vw;
+         min-width: 100vw;
     }
 }
 
@@ -329,13 +286,43 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
 
 /* -------------------------------------------
 ----------------------------------------------
-DYNAMIC ADD THIS WITH JS FOR VISUAL EFFECTS
---------------------------------------------- 
+RESPONSIVENESS FOR MOBILE FOR SMALL SCREENS
+---------------------------------------------- 
 ---------------------------------------------*/
 
-/* .text-area-show {
-    opacity: 1;
-    transform: translateY(0px);
-    z-index: -10;
+@media only screen and (max-width: 500px){
+    .logo-wrap {
+        font-size: 24px;
+    }
+    
+    .cart-icon span{
+        font-size: 16px;
+    }
+    
+    .cart-icon i {
+        font-size: 24px;
+    }
+
+    #my-cart-overlay h3{
+        text-align: left;
+    }
 }
- */
+
+/*tiny mobile*/
+@media only screen and (max-width: 335px){
+    .logo-wrap {
+        font-size: 20px;
+    }
+    
+    .cart-icon span{
+        font-size: 14px;
+    }
+    
+    .cart-icon i {
+        font-size: 20px;
+    }
+
+    .book-info span:last-child{
+        margin-left:initial;   
+    }
+}
