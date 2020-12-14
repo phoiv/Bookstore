@@ -21,7 +21,7 @@ body {
 }
 
 a {
-    color: inherit;
+    color: black;
     text-decoration: none;
     font-size: inherit;
 }
@@ -86,16 +86,28 @@ header {
     cursor: default;  
 }
 
-.cart-icon{   
+.cart-icon{
+    height: 100%;
+    align-items: center;
+    display: flex;   
     position: absolute;
     right: 5%;
-    line-height: 70px;
     cursor: pointer; 
 }
 
-.cart-icon span{
+.cart-count{
+    display: flex;
+    flex-direction: column;
+    margin-left: 3px;
     font-size: 20px;
-    vertical-align: middle;  
+    text-align: center;
+   
+}
+
+.cart-count span:first-child{
+    color: var(--secondary-text);
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .cart-icon i {
@@ -251,9 +263,34 @@ MOBILE BREAKDOWN 950PX NAV BECOMES TOGGLABE
 .book-info {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-end;
 }
 
-.book-info button {
+.quan-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.quan-buttons button{
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0px;
+    width: 14px;
+    height: 16px;
+    line-height: 12px;
+    font-size: 18px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.quan-buttons button:hover{
+    color:  rgb(88, 88, 221);
+}
+
+.book-info .delete-button {
     margin-left: 10px;
     font-size: 20px;
 }
