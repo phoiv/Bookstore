@@ -46,8 +46,10 @@
 
 .book-details {
     position: relative;
-    padding: 10px;
+    padding: 0 10px 10px;
 }
+
+
 
 .book-quote{
     background-color: rgb(228, 228, 228);
@@ -74,20 +76,51 @@
 }
 /* rgb(116, 116, 158) */
 .price-buy button {
-    background: rgb(56, 236, 56);
+    position: relative;
+    background: rgb(33, 54, 65);
     color: black;
-    border: none;
-    border-radius: 3px;
+    color: rgb(228, 228, 228);
+    border: none; 
+    border-radius: 5px;
     font-size: 18px;
-    padding: 0 10px;
+    padding: 5px 20px;
     height: 100%;
     cursor: pointer;   
 }
 
 .price-buy button:hover{
+    border: 1px solid black;
+    outline: none;
+    padding: 5px 20px;
     background: transparent;
     color: var(--secondary-text);
-    font-weight: 600;
+    /* font-weight: 600; */
+}
+
+.book-added-tooltip{
+    position: absolute;
+    border: none;
+    left:50%;
+    color: rgb(33, 54, 65);
+    transform: translateX(-50%);
+    font-size: 22px;
+    outline: none;
+    background: transparent;
+    padding: 5px;
+    animation: fadeOut 2s ease-out forwards;
+
+}
+
+@keyframes fadeOut{
+    0%{
+       opacity: 1;
+       top: -10px; 
+    }
+    100%{
+        opacity: 0;
+        top: -100px;  
+    }
+    
 }
 
 @media only screen and (max-width: 720px){
@@ -103,6 +136,10 @@
     .price-buy {
         position: initial;
         width: 100%;
+    }
+
+    .book-details{
+        padding-top: 10px;
     }
 }
 

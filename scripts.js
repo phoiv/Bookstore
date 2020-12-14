@@ -8,6 +8,7 @@ function Book(title, url, price, quantity) {
 
 
 let cartContent = loadCart();
+
 console.log(cartContent);
 
 
@@ -21,9 +22,14 @@ const burger = document.querySelector(".toggler");
 const menu = document.querySelector("#nav-menu");
 const addToBskt = document.querySelectorAll(".price-buy button");
 const contentOvr = document.querySelector(".content-overlay");
+const cartCount = document.querySelector(".cart-count span:first-child");
 
 let isNavOpen = false;
 let isCartOpen = false;
+
+
+
+updateCartCount();
 
 // myCart.innerHTML += tt;
 // myCart.innerHTML += tt;
@@ -43,6 +49,8 @@ window.addEventListener('resize', function () {
         if (isCartOpen) {
             contentOvr.style.display = "block";
         }
+        if (!isCartOpen)
+            html.style.overflow = "initial"
     }
     else if (!isNavOpen) {
         menu.className = "close"
@@ -74,6 +82,15 @@ burger.addEventListener("click", function () {
     }
 })
 
+contentOvr.addEventListener("click", function () {
+    console.log("here")
+    if (isCartOpen) {
+        myCartOvr.classList.toggle("open")
+        html.style.overflow = "initial"
+        contentOvr.style.display = "none";
+        isCartOpen = !isCartOpen;
+    }
+})
 
 
 cartTgl.addEventListener("click", function () {
@@ -108,6 +125,15 @@ addToBskt.forEach((button) => {
         cartContent[this.value - 1].quantity++;
         //update the save
         localStorage.setItem("cartContent", JSON.stringify(cartContent))
+        updateCartCount();
+        const tooltip = document.createElement("div")
+        tooltip.innerText = "+1"
+        tooltip.classList.add("book-added-tooltip")
+        this.appendChild(tooltip)
+        setTimeout(function () {
+            tooltip.remove()
+        },
+            2000)
     })
 })
 
@@ -140,21 +166,32 @@ function loadCart() {
 function generateMyCart() {
     let sum = 0;
     myCart.innerHTML = "";
-    cartContent.forEach(book => {
+    cartContent.forEach((book, index) => {
         if (book.quantity > 0) {
             let newBookOnCart = document.createElement("div");
             newBookOnCart.classList.add("book-item-cart")
+            newBookOnCart.id = `book${index + 1}`
             newBookOnCart.innerHTML = `<div class="book-cover-cart"><img src=${book.imgURL} alt=""></div>
                                        <div class="book-item-body-cart">
                                             <p class="book-title-cart">${book.title}</p>
-                                            <div class="book-info"><span>QUANTITY: ${book.quantity}</span><button>X</button><span>${book.price}€</span></div>
+                                            <div class="book-info"><span>QUANTITY: ${book.quantity}</span>
+                                            <div class="quan-buttons">
+                                                <button class="inc-button">+</button>
+                                                <button class="dec-button">-</button>                        
+                                            </div>
+                                            <button class="delete-button">X</button>
+                                            <span>${book.price}€</span></div>
                                        </div>`
             myCart.appendChild(newBookOnCart);
             sum += eval(book.quantity * book.price);
-            //we give the delete button a value which ties it with a book on our cartContent array
-            newBookOnCart.querySelector(".book-info button").value = cartContent.indexOf(book) + 1;
-            //...and add event listener to the delete button
-            newBookOnCart.querySelector(".book-info button").addEventListener("click", deleteFromCart)
+            //we give the buttons a value which ties it with a book on our cartContent array
+            newBookOnCart.querySelector(".book-info .delete-button").value = index + 1;
+            newBookOnCart.querySelector(".book-info .inc-button").value = index + 1;
+            newBookOnCart.querySelector(".book-info .dec-button").value = index + 1;
+            //...and add event listener to the buttons
+            newBookOnCart.querySelector(".book-info .delete-button").addEventListener("click", deleteFromCart)
+            newBookOnCart.querySelector(".book-info .inc-button").addEventListener("click", increaseQuan)
+            newBookOnCart.querySelector(".book-info .dec-button").addEventListener("click", decreaseQuan)
         }
     })
     const priceBox = document.querySelector(".price-total");
@@ -168,23 +205,82 @@ function generateMyCart() {
 
 }
 
-function deleteFromCart() {
-    console.log(this.value)
-    console.log
-    this.parentNode.parentNode.parentNode.remove();
-    //update price
+
+function updateCart(book, newQuan) {
+    console.log(`book${book + 1}`, newQuan)
+    cartContent[book].quantity = newQuan;
+    const bookOnCart = document.querySelector(`#book${book + 1}`)
+    console.log(bookOnCart)
+    const quanField = bookOnCart.querySelector(".book-info span:first-child").innerText = `QUANTITY: ${newQuan}`
+    updateTotalPrice()
+    updateCartCount()
+}
+
+function updateTotalPrice() {
+
+    let sum = 0;
+    cartContent.forEach((book) => {
+        sum += book.quantity * book.price;
+    })
+    console.log(sum)
     const priceBox = document.querySelector(".price-total");
-    const oldPrice = priceBox.innerText.match(/(\d)+(\.)?(\d)*/g)[0];
-    const newPrice = oldPrice - cartContent[this.value - 1].quantity * cartContent[this.value - 1].price;
-    priceBox.innerText = "Total: " + newPrice.toFixed(2) + "€";
-    if (newPrice == 0) {
+    priceBox.innerText = "Total: " + sum.toFixed(2) + "€";
+    if (sum == 0) {
         let pEmpty = document.createElement("p")
         pEmpty.innerText = "There is nothing here"
         myCart.appendChild(pEmpty)
+        return;
     }
-    //update cart quantities on temp and memory
-    cartContent[this.value - 1].quantity = 0;
-    localStorage.setItem("cartContent", JSON.stringify(cartContent))
-
 
 }
+
+function updateCartCount() {
+    let sum = 0;
+    cartContent.forEach(book => {
+        sum += book.quantity;
+    })
+    // console.log(sum)
+    if (sum == 0) cartCount.innerHTML = "";
+    else
+        cartCount.innerHTML = sum;
+}
+
+
+function increaseQuan() {
+    console.log("increasing quan")
+    let quan = cartContent[this.value - 1].quantity;
+    updateCart(this.value - 1, ++quan)
+    localStorage.setItem("cartContent", JSON.stringify(cartContent))
+}
+
+function decreaseQuan() {
+    console.log("decreasing quan")
+    let quan = cartContent[this.value - 1].quantity;
+    if (quan > 1)
+        updateCart(this.value - 1, --quan)
+    localStorage.setItem("cartContent", JSON.stringify(cartContent))
+}
+
+function deleteFromCart() {
+    console.log(`deleting book${this.value}`)
+    updateCart(this.value - 1, 0)
+    document.querySelector(`#book${this.value}`).remove()
+    localStorage.setItem("cartContent", JSON.stringify(cartContent))
+    // console.log("deleted book", this.value)
+    // this.parentNode.parentNode.parentNode.remove();
+    // //update price
+    // const priceBox = document.querySelector(".price-total");
+    // const oldPrice = priceBox.innerText.match(/(\d)+(\.)?(\d)*/g)[0];
+    // const newPrice = oldPrice - cartContent[this.value - 1].quantity * cartContent[this.value - 1].price;
+    // priceBox.innerText = "Total: " + newPrice.toFixed(2) + "€";
+    // if (newPrice == 0) {
+    //     let pEmpty = document.createElement("p")
+    //     pEmpty.innerText = "There is nothing here"
+    //     myCart.appendChild(pEmpty)
+    // }
+    // //update cart quantities on temp and memory
+    // cartContent[this.value - 1].quantity = 0;
+    // localStorage.setItem("cartContent", JSON.stringify(cartContent))
+    // updateCartCount();
+}
+
